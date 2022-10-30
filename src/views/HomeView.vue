@@ -184,11 +184,161 @@
         </div>
       </div>
     </section>
+    <section class="slider py-8">
+      <div class="container">
+        <h2 class="text-title">Slider</h2>
+        <Splide :options="{ rewind: true }" aria-label="My Favorite Images">
+          <SplideSlide>
+            <h1>one</h1>
+          </SplideSlide>
+          <SplideSlide>
+            <h1>one</h1>
+          </SplideSlide>
+        </Splide>
+      </div>
+    </section>
+    <section class="FAQ py-8">
+      <div class="container">
+        <div class="faq-title border-b-2 pb-5 border-gray-200 relative">
+          <h2 class="text-primary text-title w-3/5">
+            Frequently asked questions
+          </h2>
+          <div class="filter block md:flex gap-2">
+            <span class="text-secondary filter-title md:relative top-3"
+              >Filter by:</span
+            >
+            <div class="filter-list relative">
+              <ul class="px-2 py-2 pr-10 border-gray-200 border rounded-3xl">
+                <li class="text-primary mb-2 cursor-pointer">
+                  Program conditions
+                </li>
+                <li class="mb-2 cursor-pointer">All</li>
+                <li class="mb-2 cursor-pointer">Admissions</li>
+                <li class="mb-2 cursor-pointer">Harbour.space</li>
+                <li class="mb-2 cursor-pointer">SCG</li>
+                <li class="cursor-pointer">Living in Bangkok</li>
+              </ul>
+              <img
+                src="@/assets/imgs/arrow.png"
+                class="absolute top-5 right-3"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
+        <div class="faq-list">
+          <div
+            v-for="(faq, index) in faqs"
+            :key="index"
+            class="faq text-body grid grid-cols-2 md:grid-cols-3 justify-between py-5 border-b-2 border-gray-200"
+          >
+            <div class="catigort hidden md:block">
+              <h3 class="text-primary font-bold">{{ faq.catigory }}</h3>
+            </div>
+            <div class="item-title">
+              <span class=""> {{ faq.title }} </span>
+              <div
+                class="faq-details pt-5 font-extralight"
+                :class="[!faq.status ? 'pt-0 max-h-0 overflow-hidden' : '']"
+              >
+                <p class="mb-5 text-body">
+                  The majority of our students receive numerous job offers at
+                  the end of the second academic year of their Bachelor's
+                  programme and at the end of the first academic year of their
+                  Master's programme. The best applicants receive an offer from
+                  our industrial partners at the beginning of their programmes.
+                </p>
+                <p class="mb-5 text-body">
+                  Harbour.Space is highly recognized among innovative employers
+                  and is strategic partner of B.Grimm multi- industry
+                  corporation with 140 years of history in Thailand. Together we
+                  insure students get the best knowledge about the current job
+                  market opportunities.
+                </p>
+                <p class="mb-5 text-body">
+                  We offer our students paid internships options during studies
+                  jointly with our industrial partners.
+                </p>
+                <p class="mb-5 text-body">
+                  Employers that hired graduates of Harbour.Space in the past
+                  include Google, IBM, Accenture, Typeform, Frog, and other tech
+                  centric companies. Our industry specific employability report
+                  could be provided to you separately during the admission
+                  process.
+                </p>
+              </div>
+            </div>
+            <div class="faq-toggle justify-self-end" @click="toggleFaq(faq)">
+              <div
+                class="icon w-20 h-20 border-2 border-gray-300 relative rounded-full"
+              >
+                <!-- <svg>
+                  <circle
+                    class="w-40 h-40"
+                    cx="90"
+                    cy="90"
+                    r="50"
+                    stroke="#231f20"
+                    stroke-width="10"
+                    fill-opacity="0"
+                  />
+                </svg> -->
+                <!-- <div
+                  class="plus absolute w-10 h-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                >
+                  <span
+                    class="w-10 h-2 inline-block bg-gray-300 top-1/2 left-1/2 absolute transform -translate-x-1/2 -translate-y-1/2"
+                  ></span>
+                  <span
+                    class="w-10 h-2 inline-block bg-gray-300 top-1/2 left-1/2 transform rotate-90 absolute -translate-x-1/2 -translate-y-1/2"
+                  ></span>
+                </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
-
 <script>
+import { Splide, SplideSlide } from "@splidejs/vue-splide";
 export default {
-  name: "HomeView",
+  data() {
+    return {
+      faqs: [
+        {
+          catigory: "Program conditions",
+          title: "What are my obligations? ",
+          status: false,
+        },
+        {
+          catigory: "Program conditions",
+          title: "Do I get a job placement upon graduation? ",
+          status: false,
+        },
+        {
+          catigory: "Program conditions",
+          title: "What if I want to start my own company?  ",
+          status: false,
+        },
+        {
+          catigory: "Program conditions",
+          title: "Do I need a visa?   ",
+          status: false,
+        },
+      ],
+    };
+  },
+  methods: {
+    toggleFaq(faq) {
+      this.faqs.forEach((el) => (el.status = false));
+      faq.status = true;
+    },
+  },
+  components: {
+    Splide,
+    SplideSlide,
+  },
 };
 </script>
