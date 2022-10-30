@@ -92,11 +92,99 @@ header .container {
     "details app-info";
 }
 
+.about .img-area {
+  max-width: 438px;
+  max-height: 438px;
+}
+
+.about .img-area img {
+  width: 100%;
+}
+.about .img-area .pattren-img {
+  transform: scale(1.1);
+  z-index: -1;
+}
+
+/* .about .img-area::before {
+    content: "";
+    display: block;
+    background: url("@/assets/imgs/about-pattren.png");
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1.2);
+    z-index: -1;
+  } */
+.max-h-e {
+  max-height: 3000px;
+}
+
+.about .about-info .one {
+  grid-area: one;
+}
+.about .about-info .tow {
+  grid-area: tow;
+}
+.about .about-info .three {
+  grid-area: three;
+}
+.about .about-info .four {
+  grid-area: four;
+}
+.about .about-info .five {
+  grid-area: five;
+}
+.about .about-info .six {
+  grid-area: six;
+}
+.about .about-info .seven {
+  grid-area: seven;
+}
+
+.about-info {
+  grid-template-areas:
+    "one tow three"
+    "four five five"
+    "six seven seven";
+}
+
 @media (max-width: 768px) {
   header .container {
     grid-template-areas:
       "title"
       "app-info"
       "details";
+  }
+  .about {
+    /* @apply bg-primary; */
+    /* max-height: 300px; */
+    position: relative;
+    padding-top: 120px;
+  }
+  .about::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 401px;
+    position: absolute;
+    @apply bg-primary;
+    z-index: -1;
+  }
+  .about .about-content {
+    @apply bg-white px-5 shadow;
+  }
+  .about .about-content .about-img {
+    margin-top: -50%;
+  }
+
+  .about-info {
+    grid-template-areas:
+      "six"
+      "tow"
+      "three"
+      "five"
+      "seven";
   }
 }
