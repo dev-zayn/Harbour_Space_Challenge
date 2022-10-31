@@ -9,7 +9,11 @@
           <h4 class="font-normal">Irene Pereyra</h4>
           <span class="font-extralight"> Interaction Design Fellow ‘19 </span>
         </div>
-        <div class="social">In</div>
+        <div class="social">
+          <router-link to="/"
+            ><img src="@/assets/imgs/linkedin.png" alt="" width="18"
+          /></router-link>
+        </div>
       </div>
     </div>
     <div class="card-details bg-gray-50 px-10 py-8">

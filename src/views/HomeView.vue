@@ -1,5 +1,15 @@
 <template>
   <div class="home">
+    <div
+      class="drag bg-primary fixed z-40 text-white rounded-3xl hidden md:block opacity-0"
+    >
+      Drag
+    </div>
+    <section
+      class="sticky_bar fixed w-full bottom-0 left-0 shadow-md z-50 hidden lg:block"
+    >
+      <sticky_bar></sticky_bar>
+    </section>
     <!-- header section -->
     <header class="py-36 overflow-hidden relative">
       <img
@@ -30,7 +40,7 @@
           <P class="text-body">
             <span class="font-bold"> Position: </span> Marketing Performance
           </P>
-          <button>Applay Now</button>
+          <button>Apply Now</button>
         </div>
         <div class="app-info pt-10 md:pt-0 mb-5">
           <div class="app-logo flex items-center gap-10 mb-5">
@@ -75,10 +85,10 @@
     <section class="about">
       <div class="container">
         <div
-          class="about-content grid grid-cols-1 md:grid-cols-2 gap-10 items-center md:mb-20"
+          class="about-content grid grid-cols-1 md:grid-cols-2 gap-20 items-center md:mb-20"
         >
           <div class="about-img">
-            <div class="img-area relative flex justify-center">
+            <div class="img-area mx-auto relative flex justify-center">
               <img
                 src="@/assets/imgs/about-image.png"
                 class="main-img rounded-full hidden md:block"
@@ -185,15 +195,19 @@
       </div>
     </section>
 
-    <section class="slider pt-60 relative">
-      <div
-        class="drag px-5 py-2 bg-primary absolute left-1/2 transform top-16 -translate-x-1/2 z-40 text-white rounded-3xl hidden md:block"
-      >
-        Drag
-      </div>
+    <section
+      class="slider mt-60 relative"
+      @mousemove="dragItem($event)"
+      @mouseleave="dragData.opacity = 0"
+    >
       <img
         src="@/assets/imgs/header-pattren.png"
-        class="slider-pattren absolute left-1/2 transform top-40 md:top-16 -translate-x-1/2 -z-10"
+        class="slider-pattren absolute left-1/2 hidden md:block transform -top-40 md:-top-40 -translate-x-1/2 -z-10 w-4/12"
+        alt=""
+      />
+      <img
+        src="@/assets/imgs/phone-pattren.png"
+        class="slider-pattren absolute left-1/2 transform md:hidden -top-40 md:-top-40 -translate-x-1/2 -z-10 w-full"
         alt=""
       />
       <Splide :options="sliderConfig" aria-label="My Favorite Images">
@@ -203,7 +217,7 @@
       </Splide>
     </section>
 
-    <section class="FAQ py-8 pt-28">
+    <section class="FAQ py-8 pt-36">
       <div class="container">
         <div
           class="faq-title border-b-2 pb-5 border-gray-200 relative flex flex-col"
@@ -264,7 +278,7 @@
             </div>
             <div class="faq-toggle justify-self-end" @click="toggleFaq(faq)">
               <div
-                class="icon w-6 h-6 border border-gray-200 relative rounded-full cursor-pointer"
+                class="icon w-8 h-8 border border-gray-200 relative rounded-full cursor-pointer"
                 :class="[faq.status ? 'active' : '']"
               >
                 <!-- <svg>
@@ -299,6 +313,7 @@
 <script>
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
 import slider from "@/components/_slider.vue";
+import sticky_bar from "@/components/_sticky_bar.vue";
 export default {
   data() {
     return {
@@ -313,7 +328,7 @@ export default {
         start: 2,
         pagination: false,
         breakpoints: {
-          640: {
+          769: {
             fixedWidth: "90%",
             perPage: 1,
           },
@@ -321,17 +336,35 @@ export default {
       },
       filterToggle: false,
       faqs: [],
+      dragData: {
+        left: "",
+        top: "",
+        opacity: 0,
+      },
     };
   },
   methods: {
     toggleFaq(faq) {
       faq.status ? (faq.status = false) : (faq.status = true);
     },
+    dragItem() {
+      document.querySelector(".slider").addEventListener("mousemove", (e) => {
+        document.querySelector(".drag").style.top = e.screenY - 100 + "px";
+        document.querySelector(".drag").style.left = e.screenX + "px";
+        document.querySelector(".drag").classList.add("opacity-1");
+        document.querySelector(".drag").classList.remove("opacity-0");
+        document.querySelector(".slider").addEventListener("mouseleave", () => {
+          document.querySelector(".drag").classList.remove("opacity-1");
+          document.querySelector(".drag").classList.add("opacity-0");
+        });
+      });
+    },
   },
   components: {
     Splide,
     SplideSlide,
     slider,
+    sticky_bar,
   },
   computed: {
     windowSizeChecke() {
@@ -340,26 +373,12 @@ export default {
   },
   watch: {
     data(value) {
-      console.log("value");
-      console.log(value);
       this.faqs = value.scholarship.faqs.items;
     },
   },
   mounted() {
-    document.querySelector(".slider").addEventListener("mouseenter", () => {
-      console.log("in");
-      document.querySelector(".slider").classList.add("in");
-      document.querySelector(".slider").classList.remove("out");
-      document.querySelector(".slider").addEventListener("mouseleave", () => {
-        document.querySelector(".slider").classList.add("out");
-        document.querySelector(".slider").classList.remove("in");
-        setTimeout(() => {
-          document.querySelector(".slider").classList.remove("out");
-        }, 1500);
-      });
-    });
-
     this.getData();
+    this.dragItem();
   },
 };
 </script>
