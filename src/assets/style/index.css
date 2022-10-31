@@ -169,22 +169,10 @@ header .container {
   background: white;
 }
 
-.filter-list ul:hover {
+.filter-list.active ul {
   max-height: 1000px;
   overflow: hidden;
   /* transform: translateY(-50%); */
-}
-
-@keyframes stroke {
-  to {
-    stroke-dashoffset: 0;
-  }
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 1;
-  }
 }
 
 .slider .drag {
@@ -257,39 +245,6 @@ header .container {
   transform: translate(-50%, -50%) rotate(0deg);
 }
 
-/* .icon span {
-  transform-origin: center;
-} */
-
-/* .icon:hover {
-  animation: rotate 1.4s ease-in-out 1.4;
-  animation: shadow 1.4s linear;
-} */
-
-/* @keyframes shadow {
-  0% {
-    box-shadow: inset 0px 0px 0px #685dc5, inset 0px -0px 0px #685dc5,
-      inset -0px 0px 0px #685dc5, inset -0px -0px 0px #685dc5;
-  }
-  50% {
-    box-shadow: inset 20px 20px 0px #685dc5, inset 20px -20px 0px #685dc5,
-      inset -20px 20px 0px #685dc5, inset -20px -20px 0px #685dc5;
-  }
-  100% {
-    box-shadow: inset 40px 40px 0px #685dc5, inset 40px -40px 0px #685dc5,
-      inset -40px 40px 0px #685dc5, inset -40px -40px 0px #685dc5;
-  }
-} */
-
-@keyframes rotate {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @media (max-width: 768px) {
   .text-title {
     font-size: 35px;
@@ -338,6 +293,23 @@ header .container {
   }
 
   .splide .splide__arrows {
+    position: absolute;
+    bottom: -40px;
+    right: 0px;
+    width: 150px;
+  }
+
+  .splide .splide__arrows .splide__arrow--prev,
+  .splide .splide__arrows .splide__arrow--next {
+    width: 48px;
+    height: 48px;
+    background-color: #fff;
+    border: 2px solid #dddddd;
+  }
+
+  .splide .splide__arrows .splide__arrow--prev svg,
+  .splide .splide__arrows .splide__arrow--next svg {
+    fill: #685dc5;
   }
 
   .FAQ .faq-title h2 {
@@ -347,5 +319,10 @@ header .container {
 
   .FAQ .faq-details {
     width: 200%;
+  }
+
+  .FAQ .faq-list .item-title span {
+    width: 180%;
+    display: block;
   }
 }

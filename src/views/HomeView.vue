@@ -187,13 +187,13 @@
 
     <section class="slider pt-60 relative">
       <div
-        class="drag px-5 py-2 bg-primary absolute left-1/2 transform top-16 -translate-x-1/2 z-40 text-white rounded-3xl"
+        class="drag px-5 py-2 bg-primary absolute left-1/2 transform top-16 -translate-x-1/2 z-40 text-white rounded-3xl hidden md:block"
       >
         Drag
       </div>
       <img
         src="@/assets/imgs/header-pattren.png"
-        class="slider-pattren absolute left-1/2 transform top-16 -translate-x-1/2 -z-10"
+        class="slider-pattren absolute left-1/2 transform top-40 md:top-16 -translate-x-1/2 -z-10"
         alt=""
       />
       <Splide :options="sliderConfig" aria-label="My Favorite Images">
@@ -203,19 +203,22 @@
       </Splide>
     </section>
 
-    <section class="FAQ py-8 py-20">
+    <section class="FAQ py-8 pt-28">
       <div class="container">
         <div
           class="faq-title border-b-2 pb-5 border-gray-200 relative flex flex-col"
         >
-          <h2 class="text-primary text-title w-3/5">
+          <h2 class="text-primary text-title w-full md:w-3/5">
             Frequently asked questions
           </h2>
           <div class="filter block md:flex gap-2">
             <span class="text-secondary filter-title md:relative top-3"
               >Filter by:</span
             >
-            <div class="filter-list relative">
+            <div
+              class="filter-list relative"
+              :class="[filterToggle ? 'active' : '']"
+            >
               <ul class="px-2 py-2 pr-10 border-gray-200 border rounded-3xl">
                 <li class="text-primary mb-2 cursor-pointer">
                   Program conditions
@@ -227,8 +230,9 @@
                 <li class="cursor-pointer">Living in Bangkok</li>
               </ul>
               <img
+                @click="filterToggle = !filterToggle"
                 src="@/assets/imgs/arrow.png"
-                class="absolute top-5 right-3"
+                class="absolute top-5 right-3 cursor-pointer"
                 alt=""
               />
             </div>
@@ -315,6 +319,7 @@ export default {
           },
         },
       },
+      filterToggle: false,
       faqs: [],
     };
   },
