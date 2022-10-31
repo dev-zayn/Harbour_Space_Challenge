@@ -93,7 +93,7 @@ header .container {
 }
 
 .FAQ .faq-title h2 {
-  max-width: 580px;
+  max-width: 400px;
 }
 
 .about .img-area {
@@ -292,7 +292,7 @@ header .container {
   }
 
   .FAQ .faq-title h2 {
-    max-width: auto;
+    max-width: unset;
     margin-bottom: 20px;
   }
 
