@@ -112,7 +112,7 @@
           </div>
         </div>
         <div
-          class="about-info grid grid-cols-1 md:grid-cols-3 py-8 col-span-full gap-x-5 gap-y-10 md:gap-y-0"
+          class="about-info grid grid-cols-1 md:grid-cols-3 py-8 col-span-full gap-x-5 gap-y-5 md:gap-y-0"
         >
           <div
             class="one border border-gray-300 py-5 px-4 roubded border-b-0 hidden md:block"
@@ -146,7 +146,7 @@
               class="line block w-9/12 mx-auto h-1 border-t-2 border-gray-100 my-6"
             ></span>
           </div>
-          <div class="five py-5 flex items-center gap-10">
+          <div class="five py-0 md:py-5 flex items-center gap-10">
             <span
               class="line block w-full h-1 border-t-2 border-gray-100 my-6"
             ></span>
@@ -156,7 +156,7 @@
             ></span>
           </div>
           <div
-            class="six border-0 md:border border-gray-300 py-5 px-4 h-100 roubded border-t-0"
+            class="six border-0 md:border border-t-1 md:border-t-0 border-gray-300 py-5 px-4 h-100 roubded"
           >
             <ul class="grid grid-cols-2 gap-5">
               <li>
@@ -184,22 +184,30 @@
         </div>
       </div>
     </section>
-    <section class="slider py-8">
-      <div class="container">
-        <h2 class="text-title">Slider</h2>
-        <Splide :options="{ rewind: true }" aria-label="My Favorite Images">
-          <SplideSlide>
-            <h1>one</h1>
-          </SplideSlide>
-          <SplideSlide>
-            <h1>one</h1>
-          </SplideSlide>
-        </Splide>
+
+    <section class="slider pt-60 relative">
+      <div
+        class="drag px-5 py-2 bg-primary absolute left-1/2 transform top-16 -translate-x-1/2 z-40 text-white rounded-3xl"
+      >
+        Drag
       </div>
+      <img
+        src="@/assets/imgs/header-pattren.png"
+        class="slider-pattren absolute left-1/2 transform top-16 -translate-x-1/2 -z-10"
+        alt=""
+      />
+      <Splide :options="sliderConfig" aria-label="My Favorite Images">
+        <SplideSlide v-for="item in 10" :key="item">
+          <slider></slider>
+        </SplideSlide>
+      </Splide>
     </section>
-    <section class="FAQ py-8">
+
+    <section class="FAQ py-8 py-20">
       <div class="container">
-        <div class="faq-title border-b-2 pb-5 border-gray-200 relative">
+        <div
+          class="faq-title border-b-2 pb-5 border-gray-200 relative flex flex-col"
+        >
           <h2 class="text-primary text-title w-3/5">
             Frequently asked questions
           </h2>
@@ -230,47 +238,30 @@
           <div
             v-for="(faq, index) in faqs"
             :key="index"
-            class="faq text-body grid grid-cols-2 md:grid-cols-3 justify-between py-5 border-b-2 border-gray-200"
+            class="faq grid grid-cols-2 md:grid-cols-3 justify-between py-5 border-b-2 border-gray-200"
           >
             <div class="catigort hidden md:block">
-              <h3 class="text-primary font-bold">{{ faq.catigory }}</h3>
+              <h3 class="text-primary font-bold">{{ faq.type }}</h3>
             </div>
             <div class="item-title">
-              <span class=""> {{ faq.title }} </span>
+              <span class=""> {{ faq.question }} </span>
               <div
-                class="faq-details pt-5 font-extralight"
-                :class="[!faq.status ? 'pt-0 max-h-0 overflow-hidden' : '']"
+                class="faq-details pt-5 font-extralight text-body"
+                :class="[!faq.status ? '' : 'active']"
               >
-                <p class="mb-5 text-body">
-                  The majority of our students receive numerous job offers at
-                  the end of the second academic year of their Bachelor's
-                  programme and at the end of the first academic year of their
-                  Master's programme. The best applicants receive an offer from
-                  our industrial partners at the beginning of their programmes.
-                </p>
-                <p class="mb-5 text-body">
-                  Harbour.Space is highly recognized among innovative employers
-                  and is strategic partner of B.Grimm multi- industry
-                  corporation with 140 years of history in Thailand. Together we
-                  insure students get the best knowledge about the current job
-                  market opportunities.
-                </p>
-                <p class="mb-5 text-body">
-                  We offer our students paid internships options during studies
-                  jointly with our industrial partners.
-                </p>
-                <p class="mb-5 text-body">
-                  Employers that hired graduates of Harbour.Space in the past
-                  include Google, IBM, Accenture, Typeform, Frog, and other tech
-                  centric companies. Our industry specific employability report
-                  could be provided to you separately during the admission
-                  process.
+                <p
+                  class="mb-5 text-body"
+                  v-for="(ans, index) in faq.answer"
+                  :key="index"
+                >
+                  {{ ans.data }}
                 </p>
               </div>
             </div>
             <div class="faq-toggle justify-self-end" @click="toggleFaq(faq)">
               <div
-                class="icon w-20 h-20 border-2 border-gray-300 relative rounded-full"
+                class="icon w-6 h-6 border border-gray-200 relative rounded-full cursor-pointer"
+                :class="[faq.status ? 'active' : '']"
               >
                 <!-- <svg>
                   <circle
@@ -283,16 +274,16 @@
                     fill-opacity="0"
                   />
                 </svg> -->
-                <!-- <div
-                  class="plus absolute w-10 h-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                <div
+                  class="plus absolute w-6 h-6 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
                 >
                   <span
-                    class="w-10 h-2 inline-block bg-gray-300 top-1/2 left-1/2 absolute transform -translate-x-1/2 -translate-y-1/2"
+                    class="w-3 border-t-2 border-gray-300 inline-block top-1/2 left-1/2 absolute transform -translate-x-1/2 -translate-y-1/2"
                   ></span>
                   <span
-                    class="w-10 h-2 inline-block bg-gray-300 top-1/2 left-1/2 transform rotate-90 absolute -translate-x-1/2 -translate-y-1/2"
+                    class="w-3 inline-block border-t-2 duration-500 border-gray-300 top-1/2 left-1/2 transform rotate-90 absolute -translate-x-1/2 -translate-y-1/2"
                   ></span>
-                </div> -->
+                </div>
               </div>
             </div>
           </div>
@@ -303,42 +294,67 @@
 </template>
 <script>
 import { Splide, SplideSlide } from "@splidejs/vue-splide";
+import slider from "@/components/_slider.vue";
 export default {
   data() {
     return {
-      faqs: [
-        {
-          catigory: "Program conditions",
-          title: "What are my obligations? ",
-          status: false,
+      sliderConfig: {
+        rewind: true,
+        perPage: 3,
+        // width: "300px",
+        fixedWidth: "40%",
+        gap: "40px",
+        focus: "center",
+        loop: true,
+        start: 2,
+        pagination: false,
+        breakpoints: {
+          640: {
+            fixedWidth: "90%",
+            perPage: 1,
+          },
         },
-        {
-          catigory: "Program conditions",
-          title: "Do I get a job placement upon graduation? ",
-          status: false,
-        },
-        {
-          catigory: "Program conditions",
-          title: "What if I want to start my own company?  ",
-          status: false,
-        },
-        {
-          catigory: "Program conditions",
-          title: "Do I need a visa?   ",
-          status: false,
-        },
-      ],
+      },
+      faqs: [],
     };
   },
   methods: {
     toggleFaq(faq) {
-      this.faqs.forEach((el) => (el.status = false));
-      faq.status = true;
+      faq.status ? (faq.status = false) : (faq.status = true);
     },
   },
   components: {
     Splide,
     SplideSlide,
+    slider,
+  },
+  computed: {
+    windowSizeChecke() {
+      return window.innerWidth > 768;
+    },
+  },
+  watch: {
+    data(value) {
+      console.log("value");
+      console.log(value);
+      this.faqs = value.scholarship.faqs.items;
+    },
+  },
+  mounted() {
+    document.querySelector(".slider").addEventListener("mouseenter", () => {
+      console.log("in");
+      document.querySelector(".slider").classList.add("in");
+      document.querySelector(".slider").classList.remove("out");
+      document.querySelector(".slider").addEventListener("mouseleave", () => {
+        document.querySelector(".slider").classList.add("out");
+        document.querySelector(".slider").classList.remove("in");
+        setTimeout(() => {
+          document.querySelector(".slider").classList.remove("out");
+        }, 1500);
+      });
+    });
+
+    this.getData();
   },
 };
 </script>

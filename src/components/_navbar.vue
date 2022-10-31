@@ -11,9 +11,9 @@
         <span></span>
         <span></span>
         <span></span>
-      </div>
-      <div class="applay">
-        <span> apply<br />now </span>
+        <div class="applay">
+          <span> apply<br />now </span>
+        </div>
       </div>
     </div>
   </nav>
